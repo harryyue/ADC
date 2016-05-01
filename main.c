@@ -31,8 +31,8 @@ void int_alam(void);
 /****************************************************
  *function name£º	int main()
  *arguments£º		none
- *return value£º		0£ºsuccess
- *					-1£ºfailure
+ *return value£º	0£ºsuccess
+ *				   -1£ºfailure
  * *************************************************/
 int main()
 {
