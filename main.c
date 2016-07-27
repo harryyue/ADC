@@ -5,8 +5,8 @@
  * led3==>GPX1_0
  * led4==>GPF3_4
  * led5==>GPF3_5
- * k2==>GPX1_1(ÖĞ¶ÏID£º57)
- * k3==>GPX1_2(ÖĞ¶ÏID£º58)
+ * k2==>GPX1_1(ä¸­æ–­IDï¼š57)
+ * k3==>GPX1_2(ä¸­æ–­IDï¼š58)
  * k4==>GPX3_2
  * beep==>GPD0_0
  * *******************************************/
@@ -29,22 +29,22 @@ void int_key3(void);
 void int_alam(void);
 
 /****************************************************
- *function name£º	int main()
- *arguments£º		none
- *return value£º	0£ºsuccess
- *				   -1£ºfailure
+ *function nameï¼š	int main()
+ *argumentsï¼š		none
+ *return valueï¼š	0ï¼šsuccess
+ *		       -1ï¼šfailure
  * *************************************************/
 int main()
 {
 	unsigned int flag,count=0;
 	unsigned int v,vsum=0;
 
-	ADCCON|=1<<16;			//Ñ¡Ôñ·Ö±æÂÊÎª12-bits
-	ADCCON=(ADCCON&(~(0xff<<6)))|(99<<6);	//ÉèÖÃ·ÖÆµÂÊÎª(99+1)=>100MHz/100=1MHz
-	ADCCON|=1<<14;			//¿ªÆôÔ¤·ÖÆµ
-	ADCMUX|=0b0011;			//Ñ¡ÔñÍ¨µÀ3
-	ADCCON&=(~(1<<2));			//¿ªÆôÕı³£²Ù×÷Ä£Ê½
-	ADCCON|=1;				//¿ªÆôµ¥´Î×ª»»
+	ADCCON|=1<<16;			//é€‰æ‹©åˆ†è¾¨ç‡ä¸º12-bits
+	ADCCON=(ADCCON&(~(0xff<<6)))|(99<<6);	//è®¾ç½®åˆ†é¢‘ç‡ä¸º(99+1)=>100MHz/100=1MHz
+	ADCCON|=1<<14;			//å¼€å¯é¢„åˆ†é¢‘
+	ADCMUX|=0b0011;			//é€‰æ‹©é€šé“3
+	ADCCON&=(~(1<<2));			//å¼€å¯æ­£å¸¸æ“ä½œæ¨¡å¼
+	ADCCON|=1;				//å¼€å¯å•æ¬¡è½¬æ¢
 
 	while (1)
 	{
@@ -90,110 +90,110 @@ void mydelay_ms(int ms)
 	}
 }
 /***************************************************
- * function name£º	void init_led5(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void init_led5(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void init_led5()
 {
-	GPF3.CON=(GPF3.CON&(~(0xf<<20)))|(0x1<<20);				//ÅäÖÃGPF3_5ÎªÊä³öÄ£Ê½
+	GPF3.CON=(GPF3.CON&(~(0xf<<20)))|(0x1<<20);				//é…ç½®GPF3_5ä¸ºè¾“å‡ºæ¨¡å¼
 //	GPF3.DAT|=0x1<<5;
 
 	return ;
 }
 
 /***************************************************
- * function name£º	void init_key(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void init_key(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void init_key()
 {
-	/*1¡¢ÅäÖÃÖĞ¶ÏÔ´*/
+	/*1ã€é…ç½®ä¸­æ–­æº*/
 
-	GPX1.CON |= 0xf << 4; //ÅäÖÃÖĞ¶ÏÔ´key2ÎªÖĞ¶ÏÄ£Ê½
-	GPX1.CON |= 0xf << 8; //ÅäÖÃÖĞ¶ÏÔ´key3ÎªÖĞ¶ÏÄ£Ê½
-	EXT_INT41_CON = (EXT_INT41_CON & (~(0xf << 4))) | 0x2 << 4; //ÅäÖÃ´¥·¢·½Ê½ÎªÏÂ½µÑØ´¥·¢
+	GPX1.CON |= 0xf << 4; //é…ç½®ä¸­æ–­æºkey2ä¸ºä¸­æ–­æ¨¡å¼
+	GPX1.CON |= 0xf << 8; //é…ç½®ä¸­æ–­æºkey3ä¸ºä¸­æ–­æ¨¡å¼
+	EXT_INT41_CON = (EXT_INT41_CON & (~(0xf << 4))) | 0x2 << 4; //é…ç½®è§¦å‘æ–¹å¼ä¸ºä¸‹é™æ²¿è§¦å‘
 	EXT_INT41_CON = (EXT_INT41_CON & (~(0xf << 8))) | 0x2 << 8;
-	EXT_INT41_FLTCON0 |= 0x1 << 15; //¿ªÆôÑÓÊ±ÂË²¨
+	EXT_INT41_FLTCON0 |= 0x1 << 15; //å¼€å¯å»¶æ—¶æ»¤æ³¢
 	EXT_INT41_FLTCON0 |= 0x1 << 23;
-	EXT_INT41_MASK &= (~(0x1 << 1)); //Ê¹ÄÜÖĞ¶ÏÔ´
+	EXT_INT41_MASK &= (~(0x1 << 1)); //ä½¿èƒ½ä¸­æ–­æº
 	EXT_INT41_MASK &= (~(0x1 << 2));
 
-	/*2¡¢ÅäÖÃÖĞ¶Ï¿ØÖÆÆ÷GIC*/
-	/*2.1¡¢ÅäÖÃICD*/
-	ICDISER.ICDISER1 |= 0x1 << 25; //Ê¹ÄÜ57ºÅÖĞ¶Ï
-	ICDISER.ICDISER1 |= 0x1 << 26; //Ê¹ÄÜ58ºÅÖĞ¶Ï
-	ICDISPR.ICDISPR1 |= 0x1 << 25; //ÉèÖÃ57ºÅÖĞ¶ÏÎªµÈ´ı
-	ICDISPR.ICDISPR1 |= 0x1 << 26; //ÉèÖÃ58ºÅÖĞ¶ÏÎªµÈ´ı
+	/*2ã€é…ç½®ä¸­æ–­æ§åˆ¶å™¨GIC*/
+	/*2.1ã€é…ç½®ICD*/
+	ICDISER.ICDISER1 |= 0x1 << 25; //ä½¿èƒ½57å·ä¸­æ–­
+	ICDISER.ICDISER1 |= 0x1 << 26; //ä½¿èƒ½58å·ä¸­æ–­
+	ICDISPR.ICDISPR1 |= 0x1 << 25; //è®¾ç½®57å·ä¸­æ–­ä¸ºç­‰å¾…
+	ICDISPR.ICDISPR1 |= 0x1 << 26; //è®¾ç½®58å·ä¸­æ–­ä¸ºç­‰å¾…
 
-	//ÉèÖÃ´¦ÀíÖĞ¶ÏµÄÄ¿±êCPUÎªCPU0
+	//è®¾ç½®å¤„ç†ä¸­æ–­çš„ç›®æ ‡CPUä¸ºCPU0
 	ICDIPTR.ICDIPTR14 = (ICDIPTR.ICDIPTR14 & (~(0xff << 8)))
 			| (0b00000001 << 8);
 	ICDIPTR.ICDIPTR14 = (ICDIPTR.ICDIPTR14 & (~(0xff << 16)))
 				| (0b00000001 << 16);
 
-	v[57]=int_key2;				//ÅäÖÃÖĞ¶ÏÏòÁ¿±í
+	v[57]=int_key2;				//é…ç½®ä¸­æ–­å‘é‡è¡¨
 	v[58]=int_key3;
 
-	EXT_INT41_PEND |= 0x1 << 1; //Çå³ıÍâ²¿ÖĞ¶Ïpending×´Ì¬
+	EXT_INT41_PEND |= 0x1 << 1; //æ¸…é™¤å¤–éƒ¨ä¸­æ–­pendingçŠ¶æ€
 	EXT_INT41_PEND |= 0x1 << 2;
-	ICDICPR.ICDICPR1 |= 0x1 << 25; //Çå³ıICDµÄpending×´Ì¬
+	ICDICPR.ICDICPR1 |= 0x1 << 25; //æ¸…é™¤ICDçš„pendingçŠ¶æ€
 	ICDICPR.ICDICPR1 |= 0x1 << 26;
 
-	ICDDCR |= 0x1; //Ê¹ÄÜICD
-	/*2.2¡¢ÅäÖÃICC*/
-	CPU0.ICCICR |= 0x1; //Ê¹ÄÜCPU0
+	ICDDCR |= 0x1; //ä½¿èƒ½ICD
+	/*2.2ã€é…ç½®ICC*/
+	CPU0.ICCICR |= 0x1; //ä½¿èƒ½CPU0
 
 	return ;
 }
 /***************************************************
- * function name£º	void init_time0(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void init_time0(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void init_timer0()
 {
 	/*timer*/
-	/*1¡¢ÅäÖÃtimerÄ£Ê½*/
-	GPD0.CON=(GPD0.CON&(~(0xf)))|0x2;				//ÅäÖÃGPIO0.0Î»timerÄ£Ê½£¨PCLKÎª100MHz£©
-	/*2¡¢ÅäÖÃ·ÖÆµ±È*/
-	PWM.TCFG0 = (PWM.TCFG0 & (~(0xff))) | 99; //Ô¤·ÖÆµ1==>100MHz/(99+1)=1MHz
-	PWM.TCFG1 = (PWM.TCFG1 & (~(0xf))) | 0b0010; //Ô¤·ÖÆµ2==>1MHz/4=250KHz
-	PWM.TCNTB0 = 250 - 1; //ÆµÂÊÎª:1KHz
-	PWM.TCMPB0 = 124; //Õ¼±ÈÎª:50%
-	/*3¡¢Æô¶¯timer*/
-	PWM.TCON = 0b01010; //ÅäÖÃÎª×Ô¶¯×°ÔØ£¬ÊÖ¶¯×°ÔØ
-	PWM.TCON = 0b01001; //ÅäÖÃÎª×Ô¶¯×°ÔØ£¬ÊÖ¶¯×°ÔØ£¬Æô¶¯¶¨Ê±Æ÷
+	/*1ã€é…ç½®timeræ¨¡å¼*/
+	GPD0.CON=(GPD0.CON&(~(0xf)))|0x2;				//é…ç½®GPIO0.0ä½timeræ¨¡å¼ï¼ˆPCLKä¸º100MHzï¼‰
+	/*2ã€é…ç½®åˆ†é¢‘æ¯”*/
+	PWM.TCFG0 = (PWM.TCFG0 & (~(0xff))) | 99; //é¢„åˆ†é¢‘1==>100MHz/(99+1)=1MHz
+	PWM.TCFG1 = (PWM.TCFG1 & (~(0xf))) | 0b0010; //é¢„åˆ†é¢‘2==>1MHz/4=250KHz
+	PWM.TCNTB0 = 250 - 1; //é¢‘ç‡ä¸º:1KHz
+	PWM.TCMPB0 = 124; //å æ¯”ä¸º:50%
+	/*3ã€å¯åŠ¨timer*/
+	PWM.TCON = 0b01010; //é…ç½®ä¸ºè‡ªåŠ¨è£…è½½ï¼Œæ‰‹åŠ¨è£…è½½
+	PWM.TCON = 0b01001; //é…ç½®ä¸ºè‡ªåŠ¨è£…è½½ï¼Œæ‰‹åŠ¨è£…è½½ï¼Œå¯åŠ¨å®šæ—¶å™¨
 
 	return ;
 }
 /***************************************************
- * function name£º	void init_WDT(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void init_WDT(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void init_WDT()
 {
 	/*watch dog timer*/
-	/*1¡¢ÅäÖÃwatch dog timerµÄ·ÖÆµ±È*/
-	/*2¡¢Æô¶¯watch dog timer*/
-	WDT.WTCNT = 12000; //³õÊ¼»¯WDTµÄ¼ÆÊıÖµ£¨WTCNT£©
-	WDT.WTCON |= (199 << 8); //ÅäÖÃÔ¤·ÖÆµ1==>100MHz/(199+1)=500KHz
-	//	WDT.WTCON=(WDT.WTCON&(~(0xff)))|0b111001;	//ÅäÖÃ·ÖÆµ2==>500KHz/128=3906Hz£¬¿ªÆôWDT£¬¹Ø±ÕÖĞ¶Ï£¬¿ªÆô¸´Î»¹¦ÄÜ
-	WDT.WTCON = (WDT.WTCON & (~(0xff))) | 0b111000; //ÅäÖÃ·ÖÆµ2==>500KHz/128=3906Hz£¬¿ªÆôWDT£¬¿ªÆôÖĞ¶Ï£¬¹Ø±Õ¸´Î»¹¦ÄÜ
+	/*1ã€é…ç½®watch dog timerçš„åˆ†é¢‘æ¯”*/
+	/*2ã€å¯åŠ¨watch dog timer*/
+	WDT.WTCNT = 12000; //åˆå§‹åŒ–WDTçš„è®¡æ•°å€¼ï¼ˆWTCNTï¼‰
+	WDT.WTCON |= (199 << 8); //é…ç½®é¢„åˆ†é¢‘1==>100MHz/(199+1)=500KHz
+	//	WDT.WTCON=(WDT.WTCON&(~(0xff)))|0b111001;	//é…ç½®åˆ†é¢‘2==>500KHz/128=3906Hzï¼Œå¼€å¯WDTï¼Œå…³é—­ä¸­æ–­ï¼Œå¼€å¯å¤ä½åŠŸèƒ½
+	WDT.WTCON = (WDT.WTCON & (~(0xff))) | 0b111000; //é…ç½®åˆ†é¢‘2==>500KHz/128=3906Hzï¼Œå¼€å¯WDTï¼Œå¼€å¯ä¸­æ–­ï¼Œå…³é—­å¤ä½åŠŸèƒ½
 
 	return ;
 }
 /***************************************************
- * function name£º	void init_RTC(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void init_RTC(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void init_RTC()
 {
 	/*Real Time Clock*/
-	RTCCON |= 1; 							//¿ªÆôRTCĞ´Ê¹ÄÜ
+	RTCCON |= 1; 							//å¼€å¯RTCå†™ä½¿èƒ½
 	RTC.BCDYEAR = 0x016;
 	RTC.BCDMON = 0x04;
 	RTC.BCDDAY = 0x19;
@@ -201,7 +201,7 @@ void init_RTC()
 	RTC.BCDHOUR = 0x17;
 	RTC.BCDMIN = 0x32;
 	RTC.BCDSEC = 0x30;
-	RTCCON &= (~1);							//¹Ø±ÕRTCĞ´Ê¹ÄÜ
+	RTCCON &= (~1);							//å…³é—­RTCå†™ä½¿èƒ½
 
 	/*RTC_ALM ID=76*/
 	RTCALM.MIN=0x33;
@@ -218,27 +218,27 @@ void init_RTC()
 	return ;
 }
 /***************************************************
- * function name£º	void do_irq(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void do_irq(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void do_irq(void)
 {
 	int int_ID;
 
-	int_ID = CPU0.ICCIAR & 0x3ff; //¶ÁÈ¡ÖĞ¶ÏIDºÅ
+	int_ID = CPU0.ICCIAR & 0x3ff; //è¯»å–ä¸­æ–­IDå·
 	printf(">[do_irq]interrupt id:%d\n", int_ID);
 
 	(*v[int_ID])();
 
-	CPU0.ICCEOIR |= (CPU0.ICCEOIR & (~(0x3ff))) | int_ID; //¹Ø±ÕÖĞ¶Ï
+	CPU0.ICCEOIR |= (CPU0.ICCEOIR & (~(0x3ff))) | int_ID; //å…³é—­ä¸­æ–­
 
 	return ;
 }
 /***************************************************
- * function name£º	void int_key2(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void int_key2(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void int_key2()
 {
@@ -246,15 +246,15 @@ void int_key2()
 
 	GPF3.DAT|=(0x1<<5);
 
-	EXT_INT41_PEND |= 0x1 << 1; //Çå³ıÍâ²¿ÖĞ¶Ïpending×´Ì¬
-	ICDICPR.ICDICPR1 |= 0x1 << 25; //Çå³ıICDµÄpending×´Ì¬
+	EXT_INT41_PEND |= 0x1 << 1; //æ¸…é™¤å¤–éƒ¨ä¸­æ–­pendingçŠ¶æ€
+	ICDICPR.ICDICPR1 |= 0x1 << 25; //æ¸…é™¤ICDçš„pendingçŠ¶æ€
 
 	return ;
 }
 /***************************************************
- * function name£º	void int_key3(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void int_key3(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void int_key3()
 {
@@ -263,15 +263,15 @@ void int_key3()
 	GPF3.DAT&=(~(0x1<<5));
 	GPD0.CON=(GPD0.CON&(~(0xf)))|0x4;
 
-	EXT_INT41_PEND |= 0x1 << 2; //Çå³ıÍâ²¿ÖĞ¶Ïpending×´Ì¬
-	ICDICPR.ICDICPR1 |= 0x1 << 26; //Çå³ıICDµÄpending×´Ì¬
+	EXT_INT41_PEND |= 0x1 << 2; //æ¸…é™¤å¤–éƒ¨ä¸­æ–­pendingçŠ¶æ€
+	ICDICPR.ICDICPR1 |= 0x1 << 26; //æ¸…é™¤ICDçš„pendingçŠ¶æ€
 
 	return ;
 }
 /***************************************************
- * function name£º	void int_alam(void)
- * arguments£º		none
- * return value£º	none
+ * function nameï¼š	void int_alam(void)
+ * argumentsï¼š		none
+ * return valueï¼š	none
  **************************************************/
 void int_alam()
 {
@@ -280,8 +280,8 @@ void int_alam()
 	GPF3.DAT|=(0x1<<5);
 	init_timer0();
 
-	RTCINTP|= 0x1 << 1; //Çå³ıRTC_alarmÖĞ¶Ïpending×´Ì¬
-	ICDICPR.ICDICPR2 |= 0x1 << 12; //Çå³ıICDµÄpending×´Ì¬
+	RTCINTP|= 0x1 << 1; //æ¸…é™¤RTC_alarmä¸­æ–­pendingçŠ¶æ€
+	ICDICPR.ICDICPR2 |= 0x1 << 12; //æ¸…é™¤ICDçš„pendingçŠ¶æ€
 
 	return ;
 }
